@@ -92,7 +92,7 @@ class Table {
       );
 
   Map<String, dynamic> toJson() => {
-        "imageUrl": imageUrl,
+        "imageUrl": "https://vegetablemarketprice.com/" + imageUrl,
         "imageSize": imageSize,
         "heightRatio": heightRatio,
       };

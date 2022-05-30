@@ -1,5 +1,8 @@
-import 'package:dmp/Services/service.dart';
+import 'dart:developer';
+
+import 'package:mmp/Services/service.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class RomoteService {
   late Post objPost;
@@ -18,9 +21,12 @@ class RomoteService {
   // }
 
   Future<Post> getPost() async {
+    // print(formattedDate);
     var client = http.Client();
     var uri = Uri.parse(
-        'https://vegetablemarketprice.com/api/data/market/dharmapuri/daywise?date=2022-05-24');
+        'https://vegetablemarketprice.com/api/data/market/hosur/daywise?date=${{
+      getCurrentDate()
+    }}');
     var response = await client.get(uri);
     if (response.statusCode == 200) {
       var json = response.body;
@@ -30,4 +36,11 @@ class RomoteService {
       return objPost;
     }
   }
+}
+
+getCurrentDate() {
+  var now = new DateTime.now();
+  var formatter = new DateFormat('yyyy-MM-dd');
+  String formattedDate = formatter.format(now);
+  return formattedDate;
 }

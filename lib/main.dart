@@ -1,5 +1,5 @@
-import 'package:dmp/View/Screen1.dart';
-import 'package:dmp/class/themeData.dart';
+import 'package:mmp/View/Screen1.dart';
+import 'package:mmp/class/themeData.dart';
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
