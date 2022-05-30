@@ -21,12 +21,13 @@ class RomoteService {
   // }
 
   Future<Post> getPost() async {
-    // print(formattedDate);
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yyyy-MM-dd');
+    String formattedDate = formatter.format(now);
+    print(formattedDate);
     var client = http.Client();
     var uri = Uri.parse(
-        'https://vegetablemarketprice.com/api/data/market/hosur/daywise?date=${{
-      getCurrentDate()
-    }}');
+        'https://vegetablemarketprice.com/api/data/market/hosur/daywise?date=${formattedDate}');
     var response = await client.get(uri);
     if (response.statusCode == 200) {
       var json = response.body;
@@ -36,11 +37,4 @@ class RomoteService {
       return objPost;
     }
   }
-}
-
-getCurrentDate() {
-  var now = new DateTime.now();
-  var formatter = new DateFormat('yyyy-MM-dd');
-  String formattedDate = formatter.format(now);
-  return formattedDate;
 }
