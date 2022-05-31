@@ -2,7 +2,7 @@
     package="com.example.mmp">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="mmp"
+        android:label="Kaikari Price"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -31,5 +31,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8670613700051396~6277785460"/>
     </application>
 </manifest>
