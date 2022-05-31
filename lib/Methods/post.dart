@@ -27,7 +27,7 @@ class RomoteService {
     print(formattedDate);
     var client = http.Client();
     var uri = Uri.parse(
-        'https://vegetablemarketprice.com/api/data/market/${market}/daywise?date=2022-05-30');
+        'https://vegetablemarketprice.com/api/data/market/${market}/daywise?date=${formattedDate}');
     var response = await client.get(uri);
     print(uri);
     if (response.statusCode == 200) {
