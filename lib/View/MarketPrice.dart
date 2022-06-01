@@ -62,6 +62,7 @@ class _MarketPriceState extends State<MarketPrice> {
           replacement: Center(child: CircularProgressIndicator()),
           child: GridView.builder(
             itemCount: lstDatum.length,
+            // ignore: prefer_const_constructors
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3, mainAxisSpacing: 1, crossAxisSpacing: 1),
             itemBuilder: (BuildContext context, int index) {
@@ -72,6 +73,51 @@ class _MarketPriceState extends State<MarketPrice> {
                         borderRadius: BorderRadius.circular(10)),
                     child: Stack(
                       children: [
+                        Material(
+                          color: Colors.teal[300],
+                          child: InkWell(
+                            onTap: () {
+                              print('showing alert for other prices');
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Expanded(
+                                    child: AlertDialog(
+                                      title: Text(lstDatum[index]
+                                          .vegetableName
+                                          .vegName()),
+                                      content: Text(
+                                        'Retail Prices: ₹${lstDatum[index].retailPrice} \nShopping Mall: ₹${lstDatum[index].shopingMallPrice}',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: "RobotoRegular",
+                                        ),
+                                      ),
+                                      actions: [
+                                        FlatButton(
+                                          textColor: Colors.black,
+                                          onPressed: () =>
+                                              Navigator.pop(context, true),
+                                          child: Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.all(10),
+                              child: const Text(
+                                'Tap for more prices',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 15),
+                              ),
+                            ),
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(30),
                           child: Container(

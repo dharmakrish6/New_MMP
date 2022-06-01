@@ -4,7 +4,6 @@ import 'package:firebase_admob/firebase_admob.dart';
 import 'package:mmp/View/MarketPrice.dart';
 import 'package:mmp/class/themeData.dart';
 import 'package:flutter/material.dart';
-
 import '../Services/ad_manager.dart';
 
 class MarketList extends StatefulWidget {
