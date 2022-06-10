@@ -6,11 +6,11 @@ import 'package:mmp/class/themeData.dart';
 import 'package:flutter/material.dart';
 import '../Services/ad_manager.dart';
 
-class MarketList extends StatefulWidget {
-  MarketList({Key? key}) : super(key: key);
+class UlavarMarketList extends StatefulWidget {
+  UlavarMarketList({Key? key}) : super(key: key);
 
   @override
-  State<MarketList> createState() => _MarketListState();
+  State<UlavarMarketList> createState() => _UlavarMarketListState();
 }
 
 Future<void> _initAdMob() {
@@ -68,7 +68,7 @@ List<String> markets = [
   "hyderabad"
 ];
 
-class _MarketListState extends State<MarketList> {
+class _UlavarMarketListState extends State<UlavarMarketList> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: ListView.builder(
