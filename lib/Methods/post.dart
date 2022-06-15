@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:mmp/Services/service.dart';
@@ -31,7 +32,7 @@ class RomoteService {
     var response = await client.get(uri);
     print(uri);
     if (response.statusCode == 200) {
-      var json = response.body;
+      var json = utf8.decode(response.bodyBytes);
       objPost = postFromJson(json);
       return objPost;
     } else {

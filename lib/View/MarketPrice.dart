@@ -191,7 +191,13 @@ class _MarketPriceState extends State<MarketPrice> {
     //     fontSize: 16.0);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vegetable price - per 1KG'),
+        title: Text(
+          'காய்கறி விலை - 1கிலோ',
+          style: TextStyle(
+            fontSize: 15,
+            fontFamily: "RobotoRegular",
+          ),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -269,7 +275,7 @@ class _MarketPriceState extends State<MarketPrice> {
                             child: Text(
                               '${lstDatum[index].vegetableName.vegName()}',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 14,
                                 fontFamily: "RobotoRegular",
                               ),
                             ),
@@ -348,6 +354,6 @@ extension MyExtension on String {
   }
 
   String vegName() {
-    return "${this.split("(")[0]}";
+    return "${this.replaceAll(new RegExp(r'[a-zA-Z()]'), '')}";
   }
 }

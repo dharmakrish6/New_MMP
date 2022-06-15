@@ -8,9 +8,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import '../Services/ad_manager.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   BannerAd createBannerAd() {
     return BannerAd(
@@ -29,6 +31,7 @@ Future<void> main(List<String> args) async {
     ..show();
 
   runApp(MyApp());
+  // FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
@@ -41,12 +44,15 @@ class MyApp extends StatelessWidget {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
-              title: Text('All About Vegetables'),
+              title: Text(
+                'காய்கறி விலை நிலவரம்',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontFamily: "RobotoRegular",
+                ),
+              ),
               bottom: TabBar(
-                tabs: [
-                  Tab(text: "Mandi/\nமார்க்கெட்"),
-                  Tab(text: "Ulavar Santhai/\nஉழவர் சந்தை")
-                ],
+                tabs: [Tab(text: "மார்க்கெட்"), Tab(text: "உழவர் சந்தை")],
               ),
               actions: <Widget>[
                 IconButton(
