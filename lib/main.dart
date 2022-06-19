@@ -1,14 +1,11 @@
 import 'package:mmp/View/MarketList.dart';
 import 'package:mmp/View/MarketPrice.dart';
 import 'package:mmp/View/UlavarSanthai.dart';
-import 'package:mmp/View/UlavarSanthai2.dart';
 import 'package:mmp/class/themeData.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import '../Services/ad_manager.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,8 +26,10 @@ Future<void> main(List<String> args) async {
   createBannerAd()
     ..load()
     ..show();
+  await Future.delayed(const Duration(milliseconds: 500));
 
   runApp(MyApp());
+
   // FlutterNativeSplash.remove();
 }
 
@@ -40,8 +39,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: DefaultTabController(
+        home: new DefaultTabController(
           length: 2,
+          initialIndex: 1,
           child: Scaffold(
             appBar: AppBar(
               title: Text(
@@ -52,7 +52,12 @@ class MyApp extends StatelessWidget {
                 ),
               ),
               bottom: TabBar(
-                tabs: [Tab(text: "மார்க்கெட்"), Tab(text: "உழவர் சந்தை")],
+                tabs: [
+                  Tab(
+                      text: "மார்க்கெட்",
+                      icon: new Icon(Icons.local_convenience_store_rounded)),
+                  Tab(text: "உழவர் சந்தை", icon: new Icon(Icons.store))
+                ],
               ),
               actions: <Widget>[
                 IconButton(
