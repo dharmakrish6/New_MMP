@@ -1,7 +1,9 @@
+import 'package:mmp/View/DieselPrice.dart';
 import 'package:mmp/View/GoldPrice.dart';
 import 'package:mmp/View/LPGPrice.dart';
 import 'package:mmp/View/MarketList.dart';
 import 'package:mmp/View/MarketPrice.dart';
+import 'package:mmp/View/PetrolPrice.dart';
 import 'package:mmp/View/UlavarSanthai.dart';
 import 'package:mmp/class/themeData.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +25,21 @@ Future<void> main(List<String> args) async {
     );
   }
 
+  InterstitialAd createInterstitialAd() {
+    return InterstitialAd(
+      adUnitId: AdManager.interstitialAdUnitId,
+      listener: (MobileAdEvent event) {
+        print("InterstitialAd event $event");
+      },
+    );
+  }
+
   FirebaseAdMob.instance.initialize(appId: AdManager.appId);
 
   createBannerAd()
     ..load()
     ..show();
+
   await Future.delayed(const Duration(milliseconds: 500));
 
   runApp(MyApp());
@@ -42,26 +54,37 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
         home: new DefaultTabController(
-          length: 3,
+          length: 6,
           initialIndex: 0,
           child: Scaffold(
             appBar: AppBar(
               title: Text(
-                'காய்கறி விலை நிலவரம்',
+                'தினசரி விலை நிலவரம்',
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: "RobotoRegular",
                 ),
               ),
               bottom: TabBar(
+                isScrollable: true,
+                indicatorColor: Colors.white,
                 tabs: [
                   Tab(
                       text: "மார்க்கெட்",
                       icon: new Icon(Icons.local_convenience_store_rounded)),
                   Tab(text: "உழவர் சந்தை", icon: new Icon(Icons.store)),
                   Tab(
-                      text: "தங்கம்/வெள்ளி",
+                      text: "தங்கம்",
                       icon: new Icon(Icons.monetization_on_outlined)),
+                  Tab(
+                      text: "சமையல் எரிவாயு",
+                      icon: new Icon(Icons.gas_meter_sharp)),
+                  Tab(
+                      text: "பெட்ரோல்",
+                      icon: new Icon(Icons.two_wheeler_sharp)),
+                  Tab(
+                      text: "டீசல்",
+                      icon: new Icon(Icons.local_shipping_outlined)),
                 ],
               ),
               actions: <Widget>[
@@ -72,13 +95,20 @@ class MyApp extends StatelessWidget {
                   ),
                   onPressed: () {
                     Share.share(
-                        'Checkout Kaikari-Vegigetable Price|Calories|Vitamins Applications\n https://play.google.com/store/apps/details?id=com.futureappz.mmp');
+                        'Checkout Kaikari-Vegetable,Gold,LPG,Petrol and Diesel Price of daily price changes \n https://play.google.com/store/apps/details?id=com.futureappz.mmp');
                   },
                 ),
               ],
             ),
             body: TabBarView(
-              children: [MarketList(), WebViewStack(), GoldPrice()],
+              children: [
+                MarketList(),
+                WebViewStack(),
+                GoldPrice(),
+                LPGPrice(),
+                PetrolPrice(),
+                DieselPrice(),
+              ],
             ),
           ),
         ),

@@ -4,14 +4,14 @@ import 'package:html/parser.dart' as parser;
 import 'package:http/http.dart' as http;
 import '../../Services/ad_manager.dart';
 
-class LPGPrice extends StatefulWidget {
-  LPGPrice({Key? key}) : super(key: key);
+class PetrolPrice extends StatefulWidget {
+  PetrolPrice({Key? key}) : super(key: key);
 
   @override
-  State<LPGPrice> createState() => _LPGPriceState();
+  State<PetrolPrice> createState() => _PetrolPriceState();
 }
 
-class _LPGPriceState extends State<LPGPrice> {
+class _PetrolPriceState extends State<PetrolPrice> {
 // Strings to store the extracted Article titles
   var district_name = [
     "அரியாலூர்",
@@ -36,6 +36,7 @@ class _LPGPriceState extends State<LPGPrice> {
     "தஞ்சாவூர்",
     "தேனி",
     "திருவள்ளூர்",
+    "தூத்துக்குடி",
     "திருச்சி",
     "திருநெல்வேலி",
     "திருப்பூர்",
@@ -71,7 +72,7 @@ class _LPGPriceState extends State<LPGPrice> {
   Future<List> extractData() async {
     // Getting the response from the targeted url
     final response = await http.Client().get(Uri.parse(
-        'https://www.mypetrolprice.com/lpg-price-in-india.aspx?stateId=33'));
+        'https://www.mypetrolprice.com/petrol-price-in-india.aspx?stateId=33'));
 
     // Status Code 200 means response has been received successfully
     if (response.statusCode == 200) {
@@ -96,7 +97,7 @@ class _LPGPriceState extends State<LPGPrice> {
     }
   }
 
-  _LPGPriceState() {
+  _PetrolPriceState() {
     extractData().then((val) => setState(() {
           _datafromList = val;
         }));

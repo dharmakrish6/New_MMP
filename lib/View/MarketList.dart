@@ -58,7 +58,7 @@ List<List> markets = [
   ["tiruvarur", "திருவாரூர்"],
   ["udagamandalam", "உதகமண்டலம்"],
   ["vellore", "வேலூர்"],
-  ["viluppuram", "விலுப்புரம்"],
+  ["viluppuram", "விழுப்புரம்"],
   ["thiruvananthapuram", "திருவனந்தபுரம்"],
   ["ernakulam", "எர்னகுளம்"],
   ["kozhikode", "கோழிக்கோடு"],
@@ -72,6 +72,7 @@ class _MarketListState extends State<MarketList> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: ListView.builder(
+          padding: const EdgeInsets.only(bottom: 40.0),
           itemCount: markets.length,
           itemBuilder: (BuildContext context, int index) {
             return Card(

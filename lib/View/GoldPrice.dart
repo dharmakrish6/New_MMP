@@ -11,11 +11,9 @@ class GoldPrice extends StatefulWidget {
 
 class _GoldPriceState extends State<GoldPrice> {
 // Strings to store the extracted Article titles
-  String result1 = 'Live Gold Rate';
-  String result2 = 'Tap below button to get latest price per gram';
-  String result3 = '';
-  String result4 = '';
-  String result5 = '';
+  List data = ["Loading..", "Loading..", "Loading..", "Loading..", "Loading.."];
+  List _datafromList = [];
+  late Future<List> response;
 
 // boolean to show CircularProgressIndication
 // while Web Scraping awaits
@@ -91,88 +89,119 @@ class _GoldPriceState extends State<GoldPrice> {
     }
   }
 
+  _GoldPriceState() {
+    extractData().then((val) => setState(() {
+          _datafromList = val;
+        }));
+  }
+  List items = [
+    "தங்கம்(24K)- 1கிராம்",
+    "தங்கம்(22K)- 1கிராம்",
+    "தங்கம்(18K)- 1கிராம்",
+    "பிளாட்டினம்- 1கிராம்",
+    "சில்வர்- 1கிராம்"
+  ];
+
+  List images = [
+    'https://www.freeiconspng.com/thumbs/gold-bar-png/gold-bars-png-4.png',
+    'https://savoryjewellery.com/wp-content/uploads/2018/05/SJCB04-995-Purity-Gold-Coin-1-Gm.jpg',
+    'https://cdn.caratlane.com/media/catalog/product/G/C/GC00004-4Y0000_1_lar.jpg',
+    'https://pngimage.net/wp-content/uploads/2018/06/platino-png-5.png',
+    'https://m.media-amazon.com/images/I/71Be81rGzPL._UY500_.jpg'
+  ];
+
+  Widget _myListView(BuildContext context) {
+    final response = _datafromList;
+    setState(() {
+      if (response.isNotEmpty) {
+        data[0] = response[0].split('₹')[1];
+        data[1] = response[1].split('₹')[1];
+        data[2] = response[2].split('₹')[1];
+        data[3] = response[3].split('₹')[1];
+        data[4] = response[4].split('₹')[1];
+        isLoading = false;
+      } else {
+        setState(() {
+          isLoading = !isLoading;
+        });
+      }
+    });
+    var sequenceNumbers = new List<int>.generate(20, (k) => k + 1);
+    return GridView.builder(
+      padding: const EdgeInsets.only(bottom: 40.0),
+      itemCount: items.length,
+      // ignore: prefer_const_constructors
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, mainAxisSpacing: 1, crossAxisSpacing: 1),
+      itemBuilder: (BuildContext context, int index) {
+        return Padding(
+          padding: const EdgeInsets.all(2),
+          child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Stack(
+                children: [
+                  InkWell(
+                    // Padding(
+                    //   padding: const EdgeInsets.all(30),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(images[index]),
+                            fit: BoxFit.contain),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: DecoratedBox(
+                        decoration: const BoxDecoration(color: Colors.blue),
+                        child: Text(
+                          '${items[index]}',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "RobotoRegular"),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10)),
+                        color: Color.fromARGB(255, 235, 5, 97),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          '₹${data[index]}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "RobotoBold",
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // if isLoading is true show loader
-            // else show Column of Texts
-
-            isLoading
-                ? CircularProgressIndicator()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(result1,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      Text(result2,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      Text(result3,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      Text(result4,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      Text(result5,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-            MaterialButton(
-              minWidth: 200,
-              height: 55,
-              onPressed: () async {
-                // Setting isLoading true to show the loader
-                setState(() {
-                  isLoading = true;
-                });
-
-                // Awaiting for web scraping function
-                // to return list of strings
-                final response = await extractData();
-
-                // Setting the received strings to be
-                // displayed and making isLoading false
-                // to hide the loader
-                setState(() {
-                  result1 = response[0].replaceAll('- ₹', ': ₹');
-                  result2 =
-                      "${response[1].replaceAll('- ₹', ': ₹')} -( 1 பவுன் : ${int.parse(response[1].split('₹')[1]) * 8})";
-                  result3 = response[2].replaceAll('- ₹', ': ₹');
-                  result4 = response[3].replaceAll('- ₹', ': ₹');
-                  result5 = response[4].replaceAll('- ₹', ': ₹');
-                  isLoading = false;
-                });
-              },
-              child: Text(
-                'Get today Rate',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              color: Colors.green,
-            )
-          ],
-        )),
-      ),
-    );
+    // ignore: unnecessary_new
+    return _myListView(context);
   }
 }
