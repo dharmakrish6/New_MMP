@@ -247,7 +247,7 @@ class _MarketPriceState extends State<MarketPrice> {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     content: Text(
-                                      'Retail Prices: ₹ ${lstDatum[index].retailPrice} \nWholesale Price: ₹ ${lstDatum[index].price}\n\nCalories:\n${calories[index]} cal/100g\n\nVitamins:\n${vitamins[index]}',
+                                      'Shopping Mall Price: ₹ ${lstDatum[index].shopingMallPrice} \nWholesale Price: ₹ ${lstDatum[index].price}\n\nCalories:\n${calories[index]} cal/100g\n\nVitamins:\n${vitamins[index]}',
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontFamily: "RobotoRegular",
@@ -293,7 +293,7 @@ class _MarketPriceState extends State<MarketPrice> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                '₹${lstDatum[index].shopingMallPrice}',
+                                '₹${lstDatum[index].retailPrice}',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,

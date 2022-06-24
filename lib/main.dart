@@ -1,3 +1,5 @@
+import 'package:mmp/View/GoldPrice.dart';
+import 'package:mmp/View/LPGPrice.dart';
 import 'package:mmp/View/MarketList.dart';
 import 'package:mmp/View/MarketPrice.dart';
 import 'package:mmp/View/UlavarSanthai.dart';
@@ -40,8 +42,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
         home: new DefaultTabController(
-          length: 2,
-          initialIndex: 1,
+          length: 3,
+          initialIndex: 0,
           child: Scaffold(
             appBar: AppBar(
               title: Text(
@@ -56,7 +58,10 @@ class MyApp extends StatelessWidget {
                   Tab(
                       text: "மார்க்கெட்",
                       icon: new Icon(Icons.local_convenience_store_rounded)),
-                  Tab(text: "உழவர் சந்தை", icon: new Icon(Icons.store))
+                  Tab(text: "உழவர் சந்தை", icon: new Icon(Icons.store)),
+                  Tab(
+                      text: "தங்கம்/வெள்ளி",
+                      icon: new Icon(Icons.monetization_on_outlined)),
                 ],
               ),
               actions: <Widget>[
@@ -73,10 +78,7 @@ class MyApp extends StatelessWidget {
               ],
             ),
             body: TabBarView(
-              children: [
-                MarketList(),
-                WebViewStack(),
-              ],
+              children: [MarketList(), WebViewStack(), GoldPrice()],
             ),
           ),
         ),
